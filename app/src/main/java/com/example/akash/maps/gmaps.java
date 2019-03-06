@@ -12,6 +12,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -41,7 +42,9 @@ public class gmaps extends FragmentActivity implements OnMapReadyCallback {
     private static final LatLng popular = new LatLng(25.2927, 82.9704);
     private LocationManager locationManager;
     private LocationListener locationListener;
-    FusedLocationProviderClient fusedLocationProviderClient;
+    FusedLocationProviderClient mFusedLocationProviderClient;
+
+
     private Marker msunderlal;
     private Marker mshivganga;
     private Marker msatkriti;
@@ -54,6 +57,13 @@ public class gmaps extends FragmentActivity implements OnMapReadyCallback {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gmaps);
         Log.e("TAG","Activity bni");
+
+
+        // Construct a PlaceDetectionClient.
+
+
+        // Construct a FusedLocationProviderClient.
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
          SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -78,7 +88,11 @@ public class gmaps extends FragmentActivity implements OnMapReadyCallback {
         Log.e("TAG","function called");
 
         mMap = googleMap;
-        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        mMap.setBuildingsEnabled(true);
+        mMap.setMinZoomPreference(13.0f);
+        mMap.setMaxZoomPreference(24.0f);
+
 
         List<Marker> markerList = new ArrayList<>();
 
@@ -128,4 +142,5 @@ public class gmaps extends FragmentActivity implements OnMapReadyCallback {
         return false;
 
     }
+
 }
